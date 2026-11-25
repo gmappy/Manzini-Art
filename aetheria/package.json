@@ -1,13 +1,10 @@
 {
-  "name": "aetheria-gallery",
-  "version": "1.1.0",
+  "name": "my-server",
+  "version": "1.0.0",
   "private": true,
-  "description": "AETHERIA 3D virtual art gallery with real-time multiplayer visitor presence",
+  "description": "Node.js server application",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
-  },
-  "engines": {
-    "node": ">=18.0.0"
   }
 }
