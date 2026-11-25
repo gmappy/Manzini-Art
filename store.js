@@ -1,8 +1,8 @@
-/* AETHERIA shared store: schema, defaults, localStorage persistence, procedural art.
-   Loaded as a classic script by index.html and admin.html -> window.Aetheria */
+/* MANZINI shared store: schema, defaults, localStorage persistence, procedural art.
+   Loaded as a classic script by index.html and admin.html -> window.Manzini */
 (function (g) {
   'use strict';
-  const KEY = 'aetheria_exhibition_v1';
+  const KEY = 'manzini_exhibition_v1';
   const WINGS = ['South', 'East', 'North', 'West'];
 
   // 16 wall slots: 4 wings x (near/far row) x (left/right wall). Ids: S1..S4, E1..E4, N1..N4, W1..W4
@@ -91,5 +91,5 @@
   /** Items that appear on the guided tour: placed on a wall AND given a tour number, sorted. */
   function tourList(state) { return state.items.filter(i => i.slot && i.tour > 0).sort((a, b) => a.tour - b.tour); }
 
-  g.Aetheria = { hasDraft, published, KEY, WINGS, SLOTS, slot, hash, genArt, src, defaults, validate, load, save, reset, tourList };
+  g.Manzini = { hasDraft, published, KEY, WINGS, SLOTS, slot, hash, genArt, src, defaults, validate, load, save, reset, tourList };
 })(window);

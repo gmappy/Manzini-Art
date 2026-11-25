@@ -1,8 +1,8 @@
 {
-  "name": "aetheria-gallery",
+  "name": "manzini-gallery",
   "version": "1.1.0",
   "private": true,
-  "description": "AETHERIA 3D virtual art gallery with real-time multiplayer visitor presence",
+  "description": "MANZINI 3D virtual art gallery with real-time multiplayer visitor presence",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"

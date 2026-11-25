@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>AETHERIA — Curator</title>
+<title>MANZINI — Curator</title>
 <style>
   :root { --wall:#E2A894; --ink:#2a1d17; --paper:#f7efe6; --gold:#b88a5a; --line:#d9c3b3; }
   * { box-sizing:border-box; }
@@ -42,7 +42,7 @@
 <body>
 <div id="gate">
   <form id="gForm" autocomplete="off">
-    <h1>AETHERIA</h1>
+    <h1>MANZINI</h1>
     <h2 id="gTitle" style="margin:0">Curator sign in</h2>
     <label>Password<input id="gPw" type="password" required autocomplete="current-password"></label>
     <label id="gL2" hidden>Repeat password<input id="gPw2" type="password" autocomplete="new-password"></label>
@@ -58,7 +58,7 @@
 </div>
 <div id="app" hidden>
 <header>
-  <h1>AETHERIA · Curator</h1>
+  <h1>MANZINI · Curator</h1>
   <a class="btn" href="index.html">View gallery</a>
   <a class="btn" href="index.html?preview=1" target="_blank" rel="noopener">Preview draft</a>
   <button id="export" type="button" class="primary">Publish: download exhibition.json</button>
@@ -99,14 +99,14 @@
    your host's access control on /admin.html. */
 (function () {
   'use strict';
-  const $ = id => document.getElementById(id), SK = 'aetheria_admin_ok', HK = 'aetheria_admin_hash';
+  const $ = id => document.getElementById(id), SK = 'manzini_admin_ok', HK = 'manzini_admin_hash';
   const get = (st, k) => { try { return st.getItem(k); } catch (e) { return null; } };
   const stored = () => window.ADMIN_PASSWORD_HASH || get(localStorage, HK) || '';
   const msg = t => $('gMsg').textContent = t || '';
   async function hash(pw) {
     if (!(window.crypto && crypto.subtle)) throw new Error('Passwords need https:// or http://localhost.');
     const enc = new TextEncoder(), k = await crypto.subtle.importKey('raw', enc.encode(pw), 'PBKDF2', false, ['deriveBits']);
-    const b = await crypto.subtle.deriveBits({ name: 'PBKDF2', hash: 'SHA-256', salt: enc.encode('aetheria-admin-v1'), iterations: 200000 }, k, 256);
+    const b = await crypto.subtle.deriveBits({ name: 'PBKDF2', hash: 'SHA-256', salt: enc.encode('manzini-admin-v1'), iterations: 200000 }, k, 256);
     return Array.from(new Uint8Array(b), x => x.toString(16).padStart(2, '0')).join('');
   }
   function unlock() { try { sessionStorage.setItem(SK, '1'); } catch (e) {} $('gate').hidden = true; $('app').hidden = false; }
@@ -132,7 +132,7 @@
 <script>
 (function () {
   'use strict';
-  const A = window.Aetheria, $ = id => document.getElementById(id);
+  const A = window.Manzini, $ = id => document.getElementById(id);
   let state = A.defaults(), sel = null;
   const persist = () => { if (!A.save(state)) say('Browser storage is full or blocked. Export JSON to keep your work, or use smaller images.', 1); };
   function say(t, err) { const m = $('msg'); m.textContent = t; m.className = err ? 'err' : ''; }

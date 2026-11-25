@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>AETHERIA — Virtual Gallery</title>
+<title>MANZINI — Virtual Gallery</title>
 <style>
   :root { --wall:#E2A894; --ink:#2a1d17; --paper:#f7efe6; --gold:#b88a5a; --glass:rgba(32,22,18,.72); }
   * { box-sizing:border-box; }
@@ -72,7 +72,7 @@
 <canvas id="c" aria-label="3D gallery view"></canvas>
 
 <header class="hud tl">
-  <b>AETHERIA</b>
+  <b>MANZINI</b>
   <span id="clock"></span>
   <button id="presence-btn" class="btn presence-pill" type="button" commandfor="visitors-popover" command="toggle-popover" aria-expanded="false">
     <span class="dot" aria-hidden="true"></span>
@@ -125,7 +125,7 @@
 <script>
 (function () {
   'use strict';
-  const A = window.Aetheria, $ = id => document.getElementById(id);
+  const A = window.Manzini, $ = id => document.getElementById(id);
   const R = 9, HW = 4, WL = 22, H = 5, RH = 9.5, EYE = 1.7, TAU = Math.PI * 2;
   // Visitors always see the published exhibition.json. ?preview=1 shows the curator's local draft instead.
   const PREVIEW = /[?&]preview=1/.test(location.search);
@@ -136,7 +136,7 @@
   function fallback(msg) { getState().then(s => { state = s; drawFallback(msg); }); }
   function drawFallback(msg) {
     const fb = $('fb'); fb.hidden = false; document.querySelectorAll('.hud').forEach(e => e.hidden = true);
-    fb.innerHTML = '<h1>AETHERIA</h1><p></p><div class="grid"></div>';
+    fb.innerHTML = '<h1>MANZINI</h1><p></p><div class="grid"></div>';
     fb.querySelector('p').textContent = msg + ' Showing the exhibition as a list instead.';
     state.items.filter(i => i.slot).forEach(it => {
       const f = document.createElement('figure'), im = new Image(); im.alt = it.title; im.src = A.src(it);
@@ -384,8 +384,8 @@
   const lsSet = (k, v) => { try { localStorage.setItem(k, v); } catch (e) {} };
   const self = {
     id: 'local-' + Math.random().toString(36).slice(2, 8),
-    name: lsGet('aetheria_visitor_name').slice(0, 24),
-    color: /^#[0-9a-fA-F]{6}$/.test(lsGet('aetheria_visitor_color')) ? lsGet('aetheria_visitor_color') : MP_COLORS[Math.floor(Math.random() * MP_COLORS.length)]
+    name: lsGet('manzini_visitor_name').slice(0, 24),
+    color: /^#[0-9a-fA-F]{6}$/.test(lsGet('manzini_visitor_color')) ? lsGet('manzini_visitor_color') : MP_COLORS[Math.floor(Math.random() * MP_COLORS.length)]
   };
   let mpMode = 'connecting'; // 'ws' | 'local' | 'offline' | 'connecting'
   let ws = null, bc = null, reconnectTimer = null, retryDelay = 1500, noticeTimer = null;
@@ -570,7 +570,7 @@
       const b = document.createElement('button'); b.type = 'button'; b.className = 'swatch';
       b.style.setProperty('--sw', col); b.setAttribute('aria-label', 'Color ' + col);
       b.setAttribute('aria-pressed', col.toLowerCase() === self.color.toLowerCase() ? 'true' : 'false');
-      b.onclick = () => { self.color = col; lsSet('aetheria_visitor_color', col); renderSwatches(); sendMeta(); renderPresenceUI(); };
+      b.onclick = () => { self.color = col; lsSet('manzini_visitor_color', col); renderSwatches(); sendMeta(); renderPresenceUI(); };
       box.append(b);
     });
   }
@@ -649,7 +649,7 @@
       return;
     }
     if (!bc) {
-      bc = new BroadcastChannel('aetheria_presence_v1');
+      bc = new BroadcastChannel('manzini_presence_v1');
       bc.onmessage = ev => {
         if (mpMode !== 'local') return;
         const m = ev.data; if (!m || m.id === self.id) return;
@@ -675,7 +675,7 @@
   function resolveWsUrl() {
     const qs = new URLSearchParams(location.search).get('ws');
     if (qs) return qs;
-    if (window.AETHERIA_WS_URL) return window.AETHERIA_WS_URL;
+    if (window.MANZINI_WS_URL) return window.MANZINI_WS_URL;
     if (location.protocol === 'http:' || location.protocol === 'https:') {
       return (location.protocol === 'https:' ? 'wss://' : 'ws://') + location.host + '/ws';
     }
@@ -702,7 +702,7 @@
       if (msg.type === 'welcome') {
         self.id = msg.id;
         if (!self.name) self.name = msg.name || 'Visitor';
-        if (!lsGet('aetheria_visitor_color') && msg.color) self.color = msg.color;
+        if (!lsGet('manzini_visitor_color') && msg.color) self.color = msg.color;
         $('visitor-name').value = self.name;
         renderSwatches();
         clearPeers();
@@ -746,7 +746,7 @@
   $('profile-form').addEventListener('submit', e => {
     e.preventDefault();
     const val = $('visitor-name').value.trim().slice(0, 24);
-    if (val) { self.name = val; lsSet('aetheria_visitor_name', val); }
+    if (val) { self.name = val; lsSet('manzini_visitor_name', val); }
     sendMeta();
     renderPresenceUI();
     const btn = $('profile-form').querySelector('button[type="submit"]');

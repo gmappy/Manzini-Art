@@ -430,5 +430,5 @@ const heartbeat = setInterval(() => {
 heartbeat.unref();
 
 server.listen(PORT, HOST, () => {
-  console.log(`AETHERIA multiplayer server listening on http://localhost:${PORT}`);
+  console.log(`MANZINI multiplayer server listening on http://localhost:${PORT}`);
 });
